@@ -31,6 +31,6 @@ body::before {
 /* Task 4: Add styles for headings, paragraphs, and buttons */
 h1, h2, .lead, .btn-primary {
     /* insert code here */
-    color: aquamarine;
+    color: black;
     
 }
