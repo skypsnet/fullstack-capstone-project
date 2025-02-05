@@ -1,6 +1,8 @@
+/*jshint esversion: 8 */
+
 const { Router } = require("express");
 const connectToDatabase = require("../models/db");
-const router = Router()
+const router = Router();
 
 router.get('/', async (req, res) => {
     try {
