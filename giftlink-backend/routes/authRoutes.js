@@ -1,3 +1,5 @@
+/*jshint esversion: 8 */
+
 const {Router} = require('express');
 const connectToDatabase = require("../models/db");
 const pino = require('pino');
@@ -33,11 +35,11 @@ router.post('/register', async (req, res)=>{
             };
 
         const authtoken = jwt.sign(payload, JWT_SECRET);
-        logger.info('User registered sucessfully')
+        logger.info('User registered sucessfully');
         res.json({authtoken, email});    
 
     }catch(e){
-        return res.status(500).send('Internal server error')
+        return res.status(500).send('Internal server error');
     }
           
 });
@@ -47,14 +49,14 @@ router.post('/login', async (req, res)=>{
     try{
     const db = await connectToDatabase();
     const collection = db.collection('users');
-    const {email, password} =  req.body
-    console.log(email, password)
+    const {email, password} =  req.body;
+    console.log(email, password);
     const theUser = await collection.findOne({email: email});
 
     if(theUser){
        let result = await bcryptjs.compare(password, theUser.password);
        if(!result){
-          logger.error("Passwords do not match")
+          logger.error("Passwords do not match");
           return res.status(404).json({error: "Wrong password!"});
        }
        
@@ -68,13 +70,13 @@ router.post('/login', async (req, res)=>{
        }
 
        const authtoken = jwt.sign(payload, JWT_SECRET);
-       logger.info('User logged in successfully')
-       return res.status(200).json({authtoken, userName, userEmail})
+       logger.info('User logged in successfully');
+       return res.status(200).json({authtoken, userName, userEmail});
 
 
     }else{
-        logger.error('User not found')
-        return res.status(404).json({message: "user not found"})
+        logger.error('User not found');
+        return res.status(404).json({message: "user not found"});
     }
 
     }catch(e){
@@ -96,7 +98,7 @@ router.put('/update', async(req,res)=>{
         console.log(email);
         if(!email){
             logger.error("Email not found in the request headers");
-            return res.status(400).json({error: "Email not found in the request header"})
+            return res.status(400).json({error: "Email not found in the request header"});
         }
         
         const db = await connectToDatabase();
