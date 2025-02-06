@@ -57,7 +57,7 @@ router.post('/', async (req, res, next) => {
         const collection = db.collection("gifts");
         const gift = await collection.insertOne(req.body);
 
-        res.status(201).json(gift.ops[0]);
+        res.status(201).json({"message": "Gift has been created"});
     } catch (e) {
         next(e);
     }
